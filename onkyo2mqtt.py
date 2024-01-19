@@ -49,6 +49,10 @@ def parse_args(raw_args=None):
                              'Defaults to WARNING. Try DEBUG for maximum detail')
     parser.add_argument('--syslog', action='store_true',
                         help='enable logging to syslog')
+    parser.add_argument('--mqtt-user', 
+                        help='set user for MQTT authentication')
+    parser.add_argument('--mqtt-password', 
+                        help='set password for MQTT authentication')
 
     args = parser.parse_args(raw_args)
     if not args.mqtt_topic.endswith("/"):
@@ -106,6 +110,15 @@ def setup_mqtt(args):
     mqc.on_message = msghandler
     mqc.on_connect = connecthandler
     mqc.on_disconnect = disconnecthandler
+
+    if(args.mqtt_user) {
+        if(args.mqtt_password) {
+            mqc.username_pw_set(args.mqtt_user, args.mqtt_password)
+        } else {
+            mqc.username_pw_set(args.mqtt_user)
+        }
+    }
+
     mqc.connect(args.mqtt_host, args.mqtt_port, 60)
     return mqc
 
