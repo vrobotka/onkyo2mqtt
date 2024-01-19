@@ -111,13 +111,11 @@ def setup_mqtt(args):
     mqc.on_connect = connecthandler
     mqc.on_disconnect = disconnecthandler
 
-    if(args.mqtt_user) {
-        if(args.mqtt_password) {
+    if(args.mqtt_user):
+        if(args.mqtt_password):
             mqc.username_pw_set(args.mqtt_user, args.mqtt_password)
-        } else {
+        else:
             mqc.username_pw_set(args.mqtt_user)
-        }
-    }
 
     mqc.connect(args.mqtt_host, args.mqtt_port, 60)
     return mqc
